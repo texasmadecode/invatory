@@ -1,5 +1,11 @@
 import unittest
 import sqlite3
+import sys
+import os
+
+# Ensure the app module is in the Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app')))
+
 from app import app, create_table, add_item, view_items
 
 class InventoryTestCase(unittest.TestCase):
