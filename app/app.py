@@ -1,13 +1,8 @@
 import sqlite3
 from flask import Flask, request, render_template, redirect, url_for, flash
-from dotenv import load_dotenv
-import os
-
-# Load environment variables from .env file
-load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY')  # Needed for flashing messages
+app.secret_key = 'your_secret_key'  # Needed for flashing messages
 
 def create_connection():
     conn = sqlite3.connect('inventory.db')
