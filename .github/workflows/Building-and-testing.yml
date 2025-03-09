@@ -1,11 +1,17 @@
-from:ubuntu:latest 
+name: Build and Test
 
-steps:
+on: [push, pull_request]
 
-  - script: |
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-    dir
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-    echo "This is a command running in CMD"
-
-    ipconfig
+    - name: Run commands
+      run: |
+        echo "This is a command running in CMD"
+        uname -a
+        ifconfig
