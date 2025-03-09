@@ -1,0 +1,11 @@
+from:ubuntu:latest 
+
+steps:
+
+  - script: |
+
+    dir
+
+    echo "This is a command running in CMD"
+
+    ipconfig
