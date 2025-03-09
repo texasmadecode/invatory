@@ -33,11 +33,27 @@
         button:hover {
             background-color: #45a049;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Device Inventory</h1>
-    <form id="deviceForm">
+    <form id="deviceForm" method="POST" action="/add">
         <label for="barcode">Barcode:</label>
         <input type="text" id="barcode" name="barcode" required>
 
@@ -64,6 +80,38 @@
 
         <button type="submit">Add Device</button>
     </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Barcode</th>
+                <th>Device Type</th>
+                <th>In Use</th>
+                <th>Working</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+                <td>{{ item[4] }}</td>
+                <td>{{ item[5] }}</td>
+                <td class="action-buttons">
+                    <a href="{{ url_for('edit', id=item[0]) }}">Edit</a>
+                    <form action="{{ url_for('delete', id=item[0]) }}" method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <script>
         document.getElementById('deviceForm').addEventListener('submit', function(event) {

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Device</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Device</h1>
+    <form id="editForm" method="POST" action="{{ url_for('edit', id=item[0]) }}">
+        <label for="barcode">Barcode:</label>
+        <input type="text" id="barcode" name="barcode" value="{{ item[1] }}" required>
+
+        <label for="deviceType">Device Type:</label>
+        <select id="deviceType" name="deviceType" required>
+            <option value="student" {% if item[2] == 'student' %}selected{% endif %}>Student</option>
+            <option value="teacher" {% if item[2] == 'teacher' %}selected{% endif %}>Teacher</option>
+        </select>
+
+        <label for="inUse">In Use:</label>
+        <select id="inUse" name="inUse" required>
+            <option value="yes" {% if item[3] == 'yes' %}selected{% endif %}>Yes</option>
+            <option value="no" {% if item[3] == 'no' %}selected{% endif %}>No</option>
+        </select>
+
+        <label for="working">Working:</label>
+        <select id="working" name="working" required>
+            <option value="yes" {% if item[4] == 'yes' %}selected{% endif %}>Yes</option>
+            <option value="no" {% if item[4] == 'no' %}selected{% endif %}>No</option>
+        </select>
+
+        <label for="notes">Notes:</label>
+        <textarea id="notes" name="notes" rows="4">{{ item[5] }}</textarea>
+
+        <button type="submit">Update Device</button>
+    </form>
+</body>
+</html>

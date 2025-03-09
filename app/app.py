@@ -1,8 +1,13 @@
 import sqlite3
 from flask import Flask, request, render_template, redirect, url_for, flash
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Needed for flashing messages
+app.secret_key = os.getenv('SECRET_KEY')  # Needed for flashing messages
 
 def create_connection():
     conn = sqlite3.connect('inventory.db')
@@ -77,6 +82,31 @@ def add():
     notes = request.form['notes']
     add_item(barcode, device_type, in_use, working, notes)
     flash('Device added successfully!')
+    return redirect(url_for('index'))
+
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    if request.method == 'POST':
+        barcode = request.form['barcode']
+        device_type = request.form['deviceType']
+        in_use = request.form['inUse']
+        working = request.form['working']
+        notes = request.form['notes']
+        update_item(id, barcode, device_type, in_use, working, notes)
+        flash('Device updated successfully!')
+        return redirect(url_for('index'))
+    else:
+        conn = create_connection()
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM inventory WHERE id = ?', (id,))
+        item = cursor.fetchone()
+        conn.close()
+        return render_template('edit.html', item=item)
+
+@app.route('/delete/<int:id>', methods=['POST'])
+def delete(id):
+    delete_item(id)
+    flash('Device deleted successfully!')
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
