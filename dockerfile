@@ -13,8 +13,23 @@ COPY app/templates/ /app/templates
 COPY requirements.txt /app/
 COPY tests/ /app/tests
 
-# Install any needed packages specified in requirements.txt
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Use a Python-specific base image
+FROM python:3.12-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the current directory contents into the container
+COPY . /app
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose the port (if needed)
+EXPOSE 443
+
+# Run the application
+CMD ["python", "main.py"]
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
