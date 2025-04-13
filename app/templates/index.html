@@ -53,31 +53,12 @@
 </head>
 <body>
     <h1>Device Inventory</h1>
-    <form id="deviceForm" method="POST" action="/add">
-        <label for="barcode">Barcode:</label>
-        <input type="text" id="barcode" name="barcode" required>
-
-        <label for="deviceType">Device Type:</label>
-        <select id="deviceType" name="deviceType" required>
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
-        </select>
-
-        <label for="inUse">In Use:</label>
-        <select id="inUse" name="inUse" required>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-
-        <label for="working">Working:</label>
-        <select id="working" name="working" required>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-
-        <label for="notes">Notes:</label>
-        <textarea id="notes" name="notes" rows="4"></textarea>
-
+    <form action="/add" method="POST">
+        <input type="text" name="barcode" placeholder="Barcode" required>
+        <input type="text" name="deviceType" placeholder="Device Type" required>
+        <input type="text" name="inUse" placeholder="In Use" required>
+        <input type="text" name="working" placeholder="Working" required>
+        <textarea name="notes" placeholder="Notes"></textarea>
         <button type="submit">Add Device</button>
     </form>
 

@@ -1,2 +1,4 @@
-flask
-dotenv
+fastapi
+uvicorn
+jinja2
+python-dotenv
